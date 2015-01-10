@@ -42,6 +42,6 @@ module.exports = {
     },
  
     deviceCanCountSteps: function (successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "CordovaStepCounter", "can_count_steps", []);
+        cordova.exec(function(res) {successCallback(!!res);}, errorCallback, "CordovaStepCounter", "can_count_steps", []);
     }
 };
