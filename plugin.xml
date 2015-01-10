@@ -9,9 +9,9 @@
     <engine name="cordova" version=">=3.4.0"/>
   </engines>
 
-  <asset src="www/cordova-plugin-stepcounter.js" target="js/cordova-plugin-stepcounter.js"/>
+  <asset src="www/stepcounter.js" target="js/stepcounter.js"/>
 
-  <js-module src="www/cordova-plugin-stepcounter.js" name="stepcounter">
+  <js-module src="www/stepcounter.js" name="stepcounter">
     <clobbers target="stepcounter" />
   </js-module>
 
