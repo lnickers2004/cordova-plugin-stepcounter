@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="net.texh.cordovapluginstepcounter"
+        version="0.0.1">
+
+  <name>Cordova Step Counter Plugin</name>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <asset src="www/cordova-plugin-stepcounter.js" target="js/cordova-plugin-stepcounter.js"/>
+
+  <js-module src="www/cordova-plugin-stepcounter.js" name="cordova-plugin-stepcounter">
+    <clobbers target="cordova-plugin-stepcounter" />
+  </js-module>
+
+  <platform name="android">
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <service android:name="net.texh.cordovapluginstepcounter.StepCounterService" android:enabled="true" />
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-feature android:name="android.hardware.sensor.stepcounter" />
+      <uses-feature android:name="android.hardware.sensor.stepdetector" />
+    </config-file>
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="CordovaStepCounter">
+        <param name="android-package" value="net.texh.cordovapluginstepcounter.CordovaStepCounter"/>
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/net/texh/cordovapluginstepcounter/CordovaStepCounter.java" target-dir="src/net/texh/cordovapluginstepcounter/"/>
+    <source-file src="src/android/net/texh/cordovapluginstepcounter/StepCounterService.java" target-dir="src/net/texh/cordovapluginstepcounter/"/>
+  </platform>
+
+</plugin>
