@@ -11,8 +11,8 @@
 
   <asset src="www/cordova-plugin-stepcounter.js" target="js/cordova-plugin-stepcounter.js"/>
 
-  <js-module src="www/cordova-plugin-stepcounter.js" name="cordova-plugin-stepcounter">
-    <clobbers target="cordova-plugin-stepcounter" />
+  <js-module src="www/cordova-plugin-stepcounter.js" name="stepcounter">
+    <clobbers target="stepcounter" />
   </js-module>
 
   <platform name="android">

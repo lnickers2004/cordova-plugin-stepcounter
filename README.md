@@ -1,13 +1,11 @@
-# Cordova Hello World Plugin
+# Cordova Step Counter Plugin
 
-Simple plugin that returns your string prefixed with hello.
-
-Gretting a user with "Hello, world" is something that could be done in JavaScript. This plugin provides a simple example demonstrating how Cordova plugins work.
+Uses the step counter service APIs introduced in Android 4.4 KitKat to, you guessed it, count the number of steps whomever is holding the device running your app takes.
 
 ## Using
 Clone the plugin
 
-    $ git clone https://github.com/don/cordova-plugin-hello.git
+    $ git clone https://github.com/texh/cordova-plugin-stepcounter.git
 
 Create a new Cordova Project
 
@@ -16,7 +14,7 @@ Create a new Cordova Project
 Install the plugin
 
     $ cd hello
-    $ cordova plugin install ../cordova-plugin-hello
+    $ cordova plugin install ../cordova-plugin-stepcounter
     
 
 Edit `www/js/index.html` and add the following code inside `onDeviceReady`
@@ -27,15 +25,24 @@ Edit `www/js/index.html` and add the following code inside `onDeviceReady`
     }
 
     var failure = function() {
-        alert("Error calling Hello Plugin");
+        alert("Error calling CordovaStepCounter Plugin");
     }
 
-    hello.greet("World", success, failure);
+    // Start the step counter
+    stepcounter.start(success, failure);
+
+    // Stop the step counter
+    stepcounter.stop(success, failure);
+
+    // Get the amount of steps since calling start (or 0 if it hasn't been run)
+    stepcounter.getStepCount(success, failure);
+
+    // Returns true/false if Android device is running >API level 19 && has the step counter API available
+    stepcounter.deviceCanCountSteps(success, failure);
 ```
 
 Install iOS or Android platform
 
-    cordova platform add ios
     cordova platform add android
     
 Run the code

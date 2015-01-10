@@ -20,7 +20,7 @@ module.exports = {
     },
 
  
-    canCountSteps: function (successCallback, errorCallback) {
+    deviceCanCountSteps: function (successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "CordovaStepCounter", "can_count_steps", []);
     }
 };
