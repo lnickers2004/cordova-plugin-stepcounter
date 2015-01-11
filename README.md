@@ -29,7 +29,11 @@ Edit `www/js/index.html` and add the following code inside `onDeviceReady`
     }
 
     // Start the step counter
-    stepcounter.start(success, failure);
+    // startingOffset will be added to the total steps counted in this session.
+    // ie. say you have already recorded 150 steps for a certain activity, then
+    // the step counter records 50. The getStepCount method will then return 200.
+    var startingOffset = 0;
+    stepcounter.start(startingOffset, success, failure);
 
     // Stop the step counter
     stepcounter.stop(success, failure);
