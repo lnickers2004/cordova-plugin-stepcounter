@@ -59,6 +59,15 @@ This will only work on Android devices running 4.4 (KitKat) or higher, and that 
 
 Use stepcounter.deviceCanCountSteps() to see if a device meets these requirements before trying to use it any further.
 
+## Here be dragons
+
+The quality, usefulness and functionality of this code is in no way guaranteed. This is far from production ready stuff you're looking at, and definitely has a few hairy parts that need combing over.
+If you'd like to help, I'd love to hear from you!
+
+### Outstanding issues
+
+Android seems to randomly kill the step counter if your application is running in the background (ie. in the case of multitasking)
+
 ## More Info
 
 For more information on setting up Cordova see [the documentation](http://cordova.apache.org/docs/en/4.0.0/guide_cli_index.md.html#The%20Command-Line%20Interface)
