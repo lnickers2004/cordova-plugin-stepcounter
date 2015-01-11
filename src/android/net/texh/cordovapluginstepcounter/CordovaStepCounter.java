@@ -52,7 +52,9 @@ public class CordovaStepCounter extends CordovaPlugin {
     private Boolean isEnabled    = false;
 
     private StepCounterService stepCounterService;
-    boolean bound = false;
+    private boolean bound = false;
+
+    private Integer beginningOffset = 0;
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -83,8 +85,11 @@ public class CordovaStepCounter extends CordovaPlugin {
             callbackContext.success( can ? 1 : 0 );
         }
         else if (ACTION_START.equals(action)) {
+            beginningOffset = data.getInt(0);
+
             Log.i(TAG, "Starting StepCounterService");
             isEnabled = true;
+            stepCounterIntent.putExtra("beginningOffset", beginningOffset);
             activity.bindService(stepCounterIntent, mConnection, Context.BIND_AUTO_CREATE);
             activity.startService(stepCounterIntent);
         }

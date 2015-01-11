@@ -43,12 +43,13 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     private SensorManager mSensorManager;
     private Sensor        mStepSensor;
-    private Integer       offset        = 0;
-    private Integer       stepsCounted  = 0;
-    private Boolean       haveSetOffset = false;
+    private Integer       offset          = 0;
+    private Integer       stepsCounted    = 0;
+    private Integer       beginningOffset = 0;
+    private Boolean       haveSetOffset   = false;
 
     public Integer getStepsCounted() {
-        return stepsCounted;
+        return stepsCounted + beginningOffset;
     }
 
     public void stopTracking() {
@@ -74,13 +75,13 @@ public class StepCounterService extends Service implements SensorEventListener {
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "onCreate");
-
         // Do some setup stuff
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onCreate");
+        this.beginningOffset = intent.getIntExtra("beginningOffset", 0);
 
         if (isRunning /* || has no step sensors */) {
             Log.i(TAG, "Not initialising sensors");
