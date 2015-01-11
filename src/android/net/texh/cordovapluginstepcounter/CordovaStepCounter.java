@@ -55,7 +55,6 @@ public class CordovaStepCounter extends CordovaPlugin {
     boolean bound = false;
 
     private ServiceConnection mConnection = new ServiceConnection() {
-
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
@@ -77,7 +76,6 @@ public class CordovaStepCounter extends CordovaPlugin {
 
         Activity activity = this.cordova.getActivity();
         stepCounterIntent = new Intent(activity, StepCounterService.class);
-        activity.bindService(stepCounterIntent, mConnection, Context.BIND_AUTO_CREATE);
 
         if (ACTION_CAN_COUNT_STEPS.equals(action)) {
             Boolean can = deviceHasStepCounter(activity.getPackageManager());
@@ -87,10 +85,19 @@ public class CordovaStepCounter extends CordovaPlugin {
         else if (ACTION_START.equals(action)) {
             Log.i(TAG, "Starting StepCounterService");
             isEnabled = true;
+            activity.bindService(stepCounterIntent, mConnection, Context.BIND_AUTO_CREATE);
             activity.startService(stepCounterIntent);
         }
         else if (ACTION_STOP.equals(action)) {
             Log.i(TAG, "Stopping StepCounterService");
+            if (isEnabled && bound) {
+                stepCounterService.stopTracking();
+                activity.unbindService(mConnection);
+                bound = false;
+            } else {
+                Log.i(TAG, "Unable to manually stop step counter");
+            }
+
             isEnabled = false;
             activity.stopService(stepCounterIntent);
         }

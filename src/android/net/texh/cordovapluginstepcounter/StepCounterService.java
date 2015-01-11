@@ -37,8 +37,8 @@ import android.widget.Toast;
 
 public class StepCounterService extends Service implements SensorEventListener {
 
-    private final  String TAG        = "StepServiceCounter";
-    private final IBinder mBinder    = new StepCounterServiceBinder();
+    private final  String TAG        = "StepCounterService";
+    private final  IBinder mBinder   = new StepCounterServiceBinder();
     private static boolean isRunning = false;
 
     private SensorManager mSensorManager;
@@ -49,6 +49,12 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     public Integer getStepsCounted() {
         return stepsCounted;
+    }
+
+    public void stopTracking() {
+        Log.i(TAG, "Setting isRunning flag to false");
+        isRunning = false;
+        mSensorManager.unregisterListener(this);
     }
 
     @Override
@@ -74,35 +80,35 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //super.onStartCommand(intent, flags, startId);
         Log.i(TAG, "onCreate");
 
         if (isRunning /* || has no step sensors */) {
+            Log.i(TAG, "Not initialising sensors");
             return Service.START_REDELIVER_INTENT;
         }
 
-        initSensors();
+        Log.i(TAG, "Initialising sensors");
+        doInit();
 
         isRunning = true;
         return START_REDELIVER_INTENT;
     }
 
 
-    public void initSensors() {
+    public void doInit() {
         Log.i(TAG, "Registering STEP_DETECTOR sensor");
         stepsCounted  = 0;
         offset        = 0;
         haveSetOffset = false;
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mStepSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        mStepSensor    = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         mSensorManager.registerListener(this, mStepSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public boolean stopService(Intent intent) {
         Log.i(TAG, "- Received stop: " + intent);
-        Toast.makeText(this, "Background step counter stopped", Toast.LENGTH_SHORT).show();
         isRunning = false;
         return super.stopService(intent);
     }
@@ -123,7 +129,6 @@ public class StepCounterService extends Service implements SensorEventListener {
             stepsCounted = steps - offset;
             Log.i(TAG, "    - " + stepsCounted);
         }
-
     }
 
     @Override
