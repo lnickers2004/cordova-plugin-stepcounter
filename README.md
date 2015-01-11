@@ -55,7 +55,7 @@ Run the code
 
 ## Compatibility
 
-This will only work on Android devices running 4.4 (KitKat) or higher, and have a step counter sensor. This includes Google's Nexus line of handsets, and potentially some others.
+This will only work on Android devices running 4.4 (KitKat) or higher, and that have a step counter sensor. This includes Google's Nexus line of handsets, and potentially some others.
 
 Use stepcounter.deviceCanCountSteps() to see if a device meets these requirements before trying to use it any further.
 
