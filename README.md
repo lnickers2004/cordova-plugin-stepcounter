@@ -45,13 +45,19 @@ Edit `www/js/index.html` and add the following code inside `onDeviceReady`
     stepcounter.deviceCanCountSteps(success, failure);
 ```
 
-Install iOS or Android platform
+Install Android platform
 
     cordova platform add android
     
 Run the code
 
     cordova run 
+
+## Compatibility
+
+This will only work on Android devices running 4.4 (KitKat) or higher, and have a step counter sensor. This includes Google's Nexus line of handsets, and potentially some others.
+
+Use stepcounter.deviceCanCountSteps() to see if a device meets these requirements before trying to use it any further.
 
 ## More Info
 
